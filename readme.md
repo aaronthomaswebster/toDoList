@@ -2,7 +2,6 @@
 
 TODO list application written in C++.
 
-{Provide a description of the software that you wrote to demonstrate the C++ language.}
 
 This is a simple comand line application that allows you to add tasks to a list, print out the list, and mark indiviual tasks as complete. The list is saved to a file and loaded when the application is started.
 
