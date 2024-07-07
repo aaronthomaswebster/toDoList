@@ -17,6 +17,7 @@ private:
     bool completed;
 
 public:
+    // standard constructor
     Todo(string title, string description)
     {
         cout << "Task created" << endl;
@@ -24,25 +25,8 @@ public:
         this->description = description;
         this->completed = false;
     }
-    void print()
-    {
-        cout << title << " - " << description << " - " << (completed ? "Completed" : "Pending") << endl;
-    }
-    void completeToDo()
-    {
-        completed = true;
-        cout << "Todo completed" << endl;
-    }
-    bool isCompleted()
-    {
-        return completed;
-    }
-
-    string serialize()
-    {
-        return title + " - " + description + " - " + (completed ? "Completed" : "Pending");
-    }
-
+    
+    // constructor for loading from file
     Todo(string searializedTodo)
     {
         string delimiter = " - ";
@@ -55,13 +39,41 @@ public:
         searializedTodo.erase(0, pos + delimiter.length());
         completed = searializedTodo == "Completed";
     }
+
+    // function to print the todo
+    void print()
+    {
+        cout << title << " - " << description << " - " << (completed ? "Completed" : "Pending") << endl;
+    }
+
+    // function to complete the todo
+    void completeToDo()
+    {
+        completed = true;
+        cout << "Todo completed" << endl;
+    }
+
+    // function to check if the todo is completed
+    bool isCompleted()
+    {
+        return completed;
+    }
+
+    // function to serialize the todo
+    string serialize()
+    {
+        return title + " - " + description + " - " + (completed ? "Completed" : "Pending");
+    }
 };
 
+// function to clear the screen
 void clearScreen()
 {
     cout << string(100, '\n');
 }
 
+
+// function to wait for user to press enter
 void pressEnterToContinue()
 {
     cout << "Press Enter to continue...";
@@ -69,11 +81,15 @@ void pressEnterToContinue()
     clearScreen();
 }
 
+
+// function to check if a string is in a list
 bool stringListContains(list<string> l, const string &s)
 {
     return find(l.begin(), l.end(), s) != l.end();
 }
 
+
+// function to display the main menu
 string displayMainMenu()
 {
     string menuChoice = "-1";
@@ -98,6 +114,8 @@ string displayMainMenu()
     return menuChoice;
 }
 
+
+// function to load todos from file
 list<Todo> loadTodos()
 {
     list<Todo> todos;
@@ -106,7 +124,6 @@ list<Todo> loadTodos()
     bool fileExists = file.good();
     for (string line; getline(file, line);)
     {
-        ;
         Todo todo = Todo(line);
         todos.push_back(todo);
     }
@@ -125,6 +142,8 @@ list<Todo> loadTodos()
     return todos;
 }
 
+
+// function to save todos to file
 void save(list<Todo> todos)
 {
     ofstream file;
@@ -136,6 +155,8 @@ void save(list<Todo> todos)
     file.close();
 }
 
+
+// main function
 int main()
 {
     list<Todo> todos;
@@ -143,6 +164,7 @@ int main()
     string choice = "-1";
     todos = loadTodos();
 
+    // main loop
     while (1 == 1)
     {
         choice = displayMainMenu();
